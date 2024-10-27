@@ -1,61 +1,24 @@
-> What is need of Identity ?
-
-> Explain transactions and how to implement it ?
-
-> Can we have unequal columns in Union?
-
-> Can column have different data types in Union ?
-
-> Which Aggregate function have you used ?
-
-> When to use Group by ?
-
-> Can we select column which is not part of group by ?
-
-> How can we sort records ?
-
-> What’s the default sort ?
-
-> How can we remove duplicates ?
-
-> Select the first top X records ?
-
-> How to handle NULLS ?
-
-> What is use of wild cards ?
-
-> What is the use of Alias ?
-
-> How to write a case statement ?
-
-> What is self-reference tables ?
-
-> What is self-join ?
-
-> Explain the between clause ?
-
-> Can inner Subquery return multiple results ?
-
-> What is Co-related Query ?
-
-> Differentiate between Joins and Subquery ?
-
-> Performance Joins vs Subquery?
-
-> Find NTH Highest Salary in SQL.
-
-> Select the top nth highest salary using correlated Queries?
-
-> Select top nth using TSQL
-
-> Performance comparison of all the method
-
 >  What is a database? 
 - structured form of data storage in a computer or a collection of data in an organized manner and can be accessed in various ways. It is also the collection of schemas, tables, queries, views, etc. Databases help us with easily storing, accessing, and manipulating data held on a computer. The Database Management System allows a user to interact with the database.
 
 > What is RDBMS:
 - Relational Database Management Systems (RDBMS) are database management systems that maintain data records and indices in tables. Relationships may be created and maintained across and among the data and tables.
 - In a relational database, relationships between data items are expressed by means of tables.
+
+> Difference between DBMS and RDBMS?
+- DBMS:
+  - DBMS stores data as a file.
+  - No relationship between data.
+  - Normalization is not present in DBMS.
+  - Deals with small amount of data.
+  - Examples: XML
+- RDBMS:
+  - RDBMS stores data in a tabular form.
+  - Data is stored in a table. which are related to each other.eg. foreign key relation.
+  - Normalization is present in RDBMS.
+  - Deals with large amount of data.
+  - Examples: MySQL, PostgreSQL, SQL Server, Oracle, Microsoft access, etc.
+
 > Explain DML, DDL, DCL and, TCL:
 - DML(Data Manipulation language) 
     - used to retrieve, insert, update, and delete data in a database.
@@ -116,9 +79,9 @@
 > Copy data from one table to another table:
 - When we copy the data from one table to another table then the two tables should contain the same structure.
 - When we copy the data from one table to another table we use insert and select query. Tables always independent objects that mean a table does not depend on other tables.
-```SQL
-INSERT <New table name> SELECT * FROM <Old Table Name>   
-```
+  ```SQL
+  INSERT <New table name> SELECT * FROM <Old Table Name>   
+  ```
 
 > By default, the primary key creates a unique clustered index on the column whereas a unique key creates a unique non clustered index.
 > Normalization:
@@ -158,9 +121,9 @@ INSERT <New table name> SELECT * FROM <Old Table Name>
 > Real-life example:
 - Imagine you're in a library, and someone is updating a book (maybe correcting a mistake in a page). Normally, you'd wait for the person to finish the update before reading the book so you get the correct, updated version.But if you're in a hurry, you could just grab the book and start reading while it's being updated. In this case, you might:See the old information before the update is done.Read a half-updated book (maybe one page is updated, but another isn't yet).
 - This is what happens when you use NOLOCK in SQL Server. It reads the data "quickly," even if it's being updated. However, you might end up reading uncommitted or incomplete data, which can sometimes be incorrect.
-```SQL
-SELECT * FROM Employees WITH (NOLOCK);
-```
+  ```SQL
+  SELECT * FROM Employees WITH (NOLOCK);
+  ```
 > Using NOLOCK in this query means:
 - You can read the Employees table without waiting for other people to finish their updates. But, you risk reading uncommitted or inconsistent data, which could lead to wrong results.
 - When to use:NOLOCK can be useful when you need fast access to data, and you're okay with the possibility of reading data that may not be fully accurate (e.g., for quick reports or analytics that don’t need 100% precision).
@@ -169,7 +132,8 @@ SELECT * FROM Employees WITH (NOLOCK);
 - This command is basically used when a large processing of data has occurred. If a large number of deletions any modification or Bulk Copy into the tables has occurred, it has to update the indexes to take these changes into account. UPDATE_STATISTICS updates the indexes on these tables accordingly.
 
 > Constraint:
-- It is use to specify the rules for the data inside the table. Limit to type of the data that can go inti the table.
+- It is use to specify the rules for the data inside the table. Limit to type of the data that can go into the table.
+- ![alt text](image-2.png)
 - Type of constraints
     - Primary Key- Uniquiely identuify each roow in a table.
     - not Null- This constrints tell that we can not store a null value
@@ -200,16 +164,16 @@ SELECT * FROM Employees WITH (NOLOCK);
     4. Logon triggers
 > Example to understand trigger.
 - lets consider we have table and there are some data present inside the table but now i want no one can insert any new data in this table. in this particular scenario we can use the trigger.
-```SQL 
-CREATE TRIGGER trInsertEmployee 
-ON Employee
-FOR INSERT, UPDATE, DELETE
-AS
-BEGIN
-  PRINT 'YOU CANNOT PERFORM THIS OPERATION'
-  ROLLBACK TRANSACTION
-END
-```
+  ```SQL 
+  CREATE TRIGGER trInsertEmployee 
+  ON Employee
+  FOR INSERT, UPDATE, DELETE
+  AS
+  BEGIN
+    PRINT 'YOU CANNOT PERFORM THIS OPERATION'
+    ROLLBACK TRANSACTION
+  END
+  ```
 - Now if any one try to insert a data into the Employee table he/she get a message 'YOU CANNOT PERFORM THIS OPERATION' like this.
 - This trigger is for Insert we can also make trigger for UPDATE & DELETE.
 - for remove the function of trigger you can simply delete the trigger from the table folder structure.
@@ -217,65 +181,65 @@ END
 > View: 
 - it is a virtual table which consist of a subset of a data contained in a table or more than one table.
 - Views do not store any data physically by default.
-```SQL
-CREATE VIEW [IndiaEMPLOEE] AS
-SELECT Name, MobileNo
-FROM Employee
-WHERE Country= 'INDIA'
-```
+  ```SQL
+  CREATE VIEW [IndiaEMPLOEE] AS
+  SELECT Name, MobileNo
+  FROM Employee
+  WHERE Country= 'INDIA'
+  ```
 
-> Differnce b/w Having & Where Clause.
+> Difference b/w Having & Where Clause.
 - Where Clause
     - it is used before GROUP BY Clause
     - WHERE clause cannot be used with aggregate function
     - WHERE clause can be used with – Select, Insert, and Update statements
-    ```SQL 
-    SELECT Product, SUM(SaleAmount) AS TotalSales
-    FROM Sales
-    GROUP BY Product
-    WHERE SUM(SaleAmount) > 1000
-    ```
+       ```SQL 
+       SELECT Product, SUM(SaleAmount) AS TotalSales
+       FROM Sales
+       GROUP BY Product
+       WHERE SUM(SaleAmount) > 1000
+       ```
     - When we execute the above query it will give us the error as Incorrect syntax near the keyword ‘WHERE’. ,Here SUM is a Aggregate function.
 - Having Clause
     - it is used after GROUP BY Clause
     - HAVING clause can be used with aggregate function
     - HAVING clause can only be used with the Select statement.
 
-> Set Operatrs:
+> Set Operators:
 - The SET Operators in SQL Server are mainly used to combine the result of more than 1 select statement and return a single result set to the user.
     1. UNION: Combine two or more result sets into a single set, without duplicates.
     2. UNION ALL: Combine two or more result sets into a single set, including all duplicates.
     3. INTERSECT: Takes the data from both result sets which are in common.
     4. EXCEPT: Takes the data from the first result set, but not in the second result set (i.e. no matching to each other)
 
-> Sub-Qurey/ Nested-Query/ Innner-Query
-- Query within an another SQL query and embeded within the WHERE clause. 
-```SQL
-SELECT * FROM Employee WHERE name IN (SELECT name FROM UserDetails WHERE country='INDIA');
-```
+> Sub-Query/ Nested-Query/ Inner-Query
+- Query within an another SQL query and embed within the WHERE clause. 
+  ```SQL
+  SELECT * FROM Employee WHERE name IN (SELECT name FROM UserDetails WHERE country='INDIA');
+  ```
 
 > Joins:
 - used to combine two tables based on a related column between them.
 > Types of join
 - Inner Join
     - The Inner Join in SQL Server is used to return only the matching rows from both the tables involved in the join by removing the non-matching records.
-    ```SQL
-    SELECT Id as EmployeeID, Name, Department, City, Title as Project, ClientId
-    FROM Employee 
-    INNER JOIN Projects 
-    ON Employee.Id = Projects.EmployeeId;
-    ```
+      ```SQL
+      SELECT Id as EmployeeID, Name, Department, City, Title as Project, ClientId
+      FROM Employee 
+      INNER JOIN Projects 
+      ON Employee.Id = Projects.EmployeeId;
+      ```
     we are using the EmployeeId column to check the similar values on the ON clause as both the tables having this column (Id in Employee table and EmployeeId in Projects table).
 
 - Left Outer join
     - used to retrieve all the matching rows from both the tables involved in the join as well as non-matching rows from the left side table. In this case, the un-matching data will take a null value.
     - Left Outer Join will retrieve all the rows from the Left-hand side Table including the rows that have a null foreign key value in the right-hand side table.
-    ```sql
-    SELECT Id as EmployeeID, Name, Department, City, Title as Project, ClientId
-    FROM Employee 
-    LEFT OUTER JOIN Projects 
-    ON Employee.Id = Projects.EmployeeId;
-    ```
+      ```sql
+      SELECT Id as EmployeeID, Name, Department, City, Title as Project, ClientId
+      FROM Employee 
+      LEFT OUTER JOIN Projects 
+      ON Employee.Id = Projects.EmployeeId;
+      ```
 - LEFT JOIN
     ```SQL
     SELECT Id as EmployeeID, Name, Department, City, Title as Project, ClientId
@@ -342,4 +306,290 @@ SELECT * FROM Employee WHERE name IN (SELECT name FROM UserDetails WHERE country
 - Retrieve or fetch data
 - Update data in a database.
 
-> 
+> What is Identity
+- value is automatically created by the server. So, whenever you marked a column as identity, then that column will be filled in an auto-increment way by SQL Server. That means as a user we cannot insert a value manually into an identity column.
+- Seed: Starting value of a column. The default value is 1.
+- Increment: It specifies the incremental value that is added to the identity column value of the previous row. The default value is 1.
+  ```sql
+  Create Table Person
+  (
+       PersonId int identity(1, 1),
+       Name nvarchar(20)
+  )
+  ```
+> Explain transactions and how to implement it ?
+- A transaction is a set of SQL statements that should be executed as one unit. That means a transaction ensures that either all of the command succeeds or none of them. If one of the commands in the transaction fails, all of the commands fail and any data that is modified in the database is rolled back.
+- For example, if you are doing a back transaction i.e. transferring money from one account to another account. Then, in this case, there are two updates. One update is happening in the sender’s account from where the money is sending and the other update is happening in the receiver’s account who is receiving the money. Both of these two updates should either get committed or get rollback if there is an error. We don’t want the transaction to be in a half-committed state.
+
+> When to use Group by ?
+- GROUP BY clause in SQL helps organize data into groups. It’s useful when you want to summarize information, like finding totals, averages, or counts for each group of data.
+- When we implement group by clause first the data of the table will be divided into the separate group as per the column and later aggregate function will execute on each group data to get the result. That means first Group By clause is used to divide similar types of data as a group and then an aggregate function is applied to each group to get the required results.
+- If we use Group By Clause in a query, first the data in the table will be divided into different groups based on the column specified in the group by clause and then execute the aggregate function on each group to get the results.
+  ```SQL 
+  SELECT Department, COUNT(*) AS TotalEmployee
+  FROM Employee 
+  GROUP BY Department
+
+  SELECT Department, TotalSalary = SUM(Salary) 
+  FROM Employee 
+  GROUP BY Department
+  ```
+
+> Can we select column which is not part of group by ?
+- No, in SQL Server, you cannot directly select a column that is not part of the GROUP BY clause unless you apply an aggregate function to it.
+
+> Aggregate Functions:
+- An aggregate function in SQL is a function that performs a calculation on multiple rows of data and returns a single result. It’s commonly used with the GROUP BY clause to summarize data within groups.
+
+> How can we sort records ?
+- you can sort records using the ORDER BY clause. This clause lets you order the rows returned by a query based on one or more columns, either in ascending or descending order.
+- By default, ORDER BY sorts records in ascending order.
+  ```SQL
+  SELECT * FROM Employee ORDER BY Name;           -- Ascending Order
+  SELECT * FROM Employee ORDER BY Name ASC;       -- Ascending Order
+  SELECT * FROM Employee ORDER BY Name DESC;      -- descending Order
+  ```
+> How can we remove duplicates ?
+- you can remove duplicates from the result set using the DISTINCT keyword, which ensures that only unique rows are returned.
+- The DISTINCT keyword eliminates duplicate rows based on the columns specified in the SELECT statement.
+- If you have a table with duplicate product names and want to list each product only once:
+  ```SQL
+  SELECT DISTINCT ProductName
+  FROM Products;
+
+   --This will return each ProductName only once, even if it appears multiple times in the table.
+  ```
+- You can apply DISTINCT to multiple columns. In this case, it will return unique combinations of values for the specified columns.
+  ```SQL
+  SELECT DISTINCT ProductName, CategoryID
+  FROM Products;
+  SELECT DISTINCT ProductName, CategoryID
+  FROM Products;
+
+  --This returns each unique pair of ProductName and CategoryID, removing duplicates only if both values are the same across rows.
+  ```
+
+> Select the first top X records ?
+- you can select the first top X records using the TOP keyword. This is useful when you only need a limited number of rows from your query results.
+  ```SQL
+  SELECT TOP 10 * FROM Employee; -- Top 10 records
+  ```
+
+> How to handle NULLS ?
+- Handling NULL values in SQL is essential, as NULL represents missing or unknown data. 
+- ways to manage Null values.
+  1. Filtering Out NULL Values
+       - Use IS NULL or IS NOT NULL in the WHERE clause to include or exclude NULL values in your results.
+        ```SQL
+        SELECT ProductID, ProductName, Price
+        FROM Products
+        WHERE Price IS NOT NULL;
+        ```
+  2. Replacing NULL Values with COALESCE() or ISNULL()
+        - COALESCE returns the first non-NULL value in a list of columns or expressions.
+        - ISNULL is SQL Server-specific and replaces a NULL value with a specified value.
+        ```SQL
+        SELECT ProductID, ProductName, COALESCE(Price, 0) AS Price
+        FROM Products;
+        ```
+> What is use of wild cards ?
+- 
+
+> What is the use of Alias ?
+- In SQL, an alias is a temporary name assigned to a table or column, making your query easier to read, especially when working with complex expressions or joining multiple tables.
+    1. Renaming Columns
+      - Aliases can simplify column names, especially useful for computed columns or when columns have long or confusing names.
+        ```SQL
+        SELECT ProductName, (Quantity * UnitPrice) AS TotalPrice
+        FROM Products;
+        ```
+
+    2. Renaming Tables
+      - Table aliases shorten table names, making them easier to reference, especially with joins.
+        ```SQL
+        SELECT c.CustomerName, o.OrderID
+        FROM Customers AS c
+        JOIN Orders AS o ON c.CustomerID = o.CustomerID;
+        ```
+> How to write a case statement ?
+- A CASE statement in SQL is used to create conditional logic in queries, allowing you to return different values based on specified conditions. It’s similar to an IF-ELSE structure in programming.
+- Simple CASE Statement
+  ```SQL
+  SELECT column1,
+         CASE column_name
+             WHEN value1 THEN result1
+             WHEN value2 THEN result2
+             ...
+             ELSE default_result
+         END AS alias_name
+  FROM table_name;
+  -- Example
+  SELECT ProductName,
+  CASE
+      WHEN Price > 20 THEN 'Expensive'
+      ELSE 'Affordable'
+  END AS ProductCategory
+  FROM Products;
+  ```
+- Search CASE Statement - Suppose you have an Orders table with a column StatusID representing different statuses, and you want to display a text label based on each StatusID.
+  ```SQL
+  SELECT column1,
+         CASE 
+             WHEN condition1 THEN result1
+             WHEN condition2 THEN result2
+             ...
+             ELSE default_result
+         END AS alias_name
+  FROM table_name;
+  -- Example
+  SELECT OrderID, 
+         CASE StatusID
+             WHEN 1 THEN 'Pending'
+             WHEN 2 THEN 'Shipped'
+             WHEN 3 THEN 'Delivered'
+             ELSE 'Unknown Status'
+         END AS OrderStatus
+  FROM Orders;
+  ```
+- Searched CASE Statement- Let’s say you have a Products table and you want to categorize products based on their Price range.
+  ```SQL
+  SELECT ProductName, Price,
+         CASE 
+             WHEN Price < 50 THEN 'Budget'
+             WHEN Price BETWEEN 50 AND 100 THEN 'Standard'
+             WHEN Price > 100 THEN 'Premium'
+             ELSE 'Not Specified'
+         END AS PriceCategory
+  FROM Products;
+  ```
+> What is self-reference tables ?
+- A self-referencing table (also known as a self-join table) is a table that contains a foreign key linking back to its own primary key, allowing rows within the same table to have a hierarchical or parent-child relationship.
+  ```SQL
+  SELECT e.EmployeeName AS Employee, 
+         m.EmployeeName AS Manager
+  FROM Employees e
+  LEFT JOIN Employees m ON e.ManagerID = m.EmployeeID;
+  ```
+
+> What is self-join ?
+- A self-join is a join operation where a table is joined with itself. This technique is commonly used when you need to compare rows within the same table or when you need to work with hierarchical or recursive data.
+  ```SQL
+  SELECT e.EmployeeName AS Employee, 
+         m.EmployeeName AS Manager
+  FROM Employees e
+  LEFT JOIN Employees m ON e.ManagerID = m.EmployeeID;
+  ```
+> Explain the between clause ?
+- The BETWEEN clause in SQL is used to filter data within a specified range. It’s commonly used in the WHERE clause to select rows where a column’s value falls between two boundaries, which can be numeric, text, or date values. The BETWEEN clause is inclusive, meaning it includes both the lower and upper boundary values.
+  ```SQL
+  SELECT column1, column2, ...
+  FROM table_name
+  WHERE column_name BETWEEN value1 AND value2;
+
+  -- EXAMPLE
+
+  SELECT ProductName, Price
+  FROM Products
+  WHERE Price BETWEEN 50 AND 150;
+  ```
+> Can inner Subquery return multiple results ?
+- Yes, an inner subquery in SQL can return multiple results, depending on its usage and the context in which it’s used. However, the way these results are handled depends on the type of query and the operator used with the subquery.
+- If you’re using a subquery in a WHERE clause with operators like IN, ANY, or ALL, it can return multiple rows (but only one column).
+- This type of subquery is common when filtering based on a list of values.
+  ```SQL
+  -- Suppose you have two tables, Orders and Customers, and you want to find orders from specific customers.
+  -- EXAMPLE
+  SELECT OrderID, CustomerID, OrderDate
+  FROM Orders
+  WHERE CustomerID IN (SELECT CustomerID FROM Customers WHERE Country = 'USA');
+  ```
+> What is Co-related Query ?
+- A correlated subquery is a type of subquery in SQL that references a column from the outer query. Unlike a regular subquery, which runs independently of the outer query, a correlated subquery is executed once for each row processed by the outer query. Because it relies on the outer query’s values, it evaluates on a row-by-row basis.
+- Key Points of Correlated Subqueries
+    - Dependency on Outer Query: A correlated subquery references columns from the outer query, making it dependent on the outer query’s current row.
+    - Row-by-Row Evaluation: The subquery is evaluated once for each row in the outer query, so it’s often slower for large datasets.
+    - Used in Filtering or Calculating: Correlated subqueries are commonly used to filter data based on other tables or to perform calculations for each row.
+      ```SQL
+      SELECT column1, column2, ...
+      FROM table1 AS outer_table
+      WHERE columnX operator (
+          SELECT aggregate_function(column)
+          FROM table2 AS inner_table
+          WHERE inner_table.columnY = outer_table.columnZ
+      );
+      -- EXAMPLE
+      SELECT EmployeeName, Salary, DepartmentID
+      FROM Employees e
+      WHERE Salary > (
+          SELECT AVG(Salary)
+          FROM Employees
+          WHERE DepartmentID = e.DepartmentID
+      );
+      ```
+> Differentiate between Joins and Subquery ?
+- Joins and subqueries are both methods used in SQL to combine and retrieve data from multiple tables. While they can often achieve similar results, they work differently and are suitable for different use cases.
+  - Definition and structure:
+    - Join: Combines rows from two or more tables based on a related column between them. Joins create a result set that merges data from multiple tables side-by-side.
+    - Subquery: A query nested inside another query (e.g., within SELECT, FROM, or WHERE clauses). The subquery runs first, and its result is used by the outer query.
+  - Performance
+    - Join: Generally more efficient than subqueries for large datasets, as SQL engines are optimized for join operations. Joins work directly on the tables, especially when indices are used, making them faster in many cases.
+    - Subquery: Can be slower, especially when used as correlated subqueries, since they may execute for each row in the outer query. However, for certain filtering and aggregation tasks, subqueries can be simpler and more readable.
+  - Use Cases
+    - Join: Used when you need to combine columns from multiple tables and display them together. Joins are particularly helpful for queries that require merging data from related tables.Example: Listing customer details along with their orders.
+    - Subquery: Useful when you need to filter or aggregate data based on values from another table without displaying that table’s columns in the final output.
+
+> Find NTH Highest Salary in SQL.
+- you can find the N-th highest salary by using the ROW_NUMBER() or DENSE_RANK() window functions. These functions are efficient and work well with SQL Server.
+1. Using ROW_NUMBER()
+    - The ROW_NUMBER() function is commonly used to assign a unique row number to each result, based on the   specified ordering. This approach will work well if you want to get a distinct ranking, where ties are not considered as a single rank.
+      ```SQL  
+       WITH SalaryRanking AS ( 
+        SELECT Salary, ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowRank  
+        FROM Employees  
+      )
+        SELECT Salary
+        FROM SalaryRanking
+        WHERE RowRank = N;
+      ```
+      - The ROW_NUMBER() function assigns a unique rank (RowRank) to each salary in descending order.
+      - The outer query selects the salary where RowRank equals the desired rank N.
+      - Replace N with the rank you need (e.g., 2 for the second-highest, 3 for the third-highest).
+2. Using DENSE_RANK()
+    - If you want to consider duplicate salaries as the same rank (for example, if there are two employees with the highest salary), use DENSE_RANK() instead. This will assign the same rank to duplicate values and skip no ranks.
+      ```SQL
+      WITH SalaryRanking AS (
+          SELECT Salary, DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank
+          FROM Employees
+      )
+      SELECT Salary
+      FROM SalaryRanking
+      WHERE Rank = N;
+      ```
+      - DENSE_RANK() ranks salaries in descending order, assigning the same rank to duplicate salaries.
+      - This is useful if you want to treat tied salaries as the same rank without skipping ranks.
+      - Replace N with the rank you want to retrieve.
+> Select the top nth highest salary using correlated Queries?
+- To find the N-th highest salary using a correlated subquery in SQL Server, you can compare each salary with a subquery that counts how many distinct salaries are greater than the salary in question. This approach leverages the correlation between the outer and inner queries to filter results based on rankings.
+  ```SQL
+  SELECT DISTINCT Salary
+  FROM Employees e1
+  WHERE (
+      SELECT COUNT(DISTINCT Salary)
+      FROM Employees e2
+      WHERE e2.Salary > e1.Salary
+  ) = N - 1;  -- N is the rank you are looking for
+  ```
+> Performance comparison of all the method
+  - Using ROW_NUMBER() or DENSE_RANK()
+    - Speed: Generally fast, especially for large datasets, because SQL Server optimizes window functions.
+    - Execution Plan: Efficient use of sorting and indexing; the query plan is optimized for performance.
+    - Use Case: Recommended for scenarios with distinct salaries or when ranks need to account for duplicates.
+        ```SQL
+        WITH SalaryRanking AS (
+            SELECT Salary, ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowRank
+            FROM Employees
+        )
+        SELECT Salary
+        FROM SalaryRanking
+        WHERE RowRank = N;
+        ```
