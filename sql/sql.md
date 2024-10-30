@@ -593,3 +593,77 @@
         FROM SalaryRanking
         WHERE RowRank = N;
         ```
+
+### Basic Query Practicse
+1. Create a table with same structure of another table:
+```SQL
+Create table table2 as (select * from table1 where 1 = 2);
+```
+2. Create a table with same structure and with data of another table:
+```SQL
+Create table table2 select * from table1;
+```
+3. use to find 2nd, 3rd, and nth highest salary:
+> Using SubQuery
+```SQL
+Select max(Salary) from Employee
+where Salary <(Select max(Salary) from Employee)
+```
+>Using Limit
+```SQL
+select salary from Employee Order by salary desc limit N-1, 1;
+```
+> using Limit Offset
+```SQL
+select salary from Employee Order by salary desc limit 1 offset N-1;
+```
+> using Distinct
+```SQL
+select distinct salary from Employee e1 Where (N-1) = (Select count(distinct (e2.salary)) from Employee e2 where e2.salary > e1.salary);
+```
+4. Find all the employees who also hold the managerial position:
+```SQL
+select * from Employee where (employee_id in( select manager_id from Employee));
+```
+5. names of the employees that begins with "A":
+```SQL
+select name from Employee where name like "A%";
+```
+> For multiple characters:
+```SQL
+select name from Employee where name like "A%" or name like "B%";
+```
+6. display the current date:
+```SQL
+select curdate();
+```
+```SQL
+select Current_date;
+```
+```SQL
+select Current_date();
+```
+```SQL 
+select date(now());
+```
+```SQL
+select Date(Current_Timestamp());
+```
+7. Used to fetch alternate rows from a table:
+```SQL
+select * from Employee where mod(employee_id, 2) = 0;
+```
+```SQL
+select * from Employee where employee_id % 2 = 0;
+```
+```SQL
+select * from Employee where employee_id % 2 = 1;
+```
+8. Fetch the common records from two different tables:
+```SQL
+select * from Employee INNER JOIN Manager on Employee.employee_id = Manager.employee_id;
+```
+9. Duplicate row s in a table:
+```SQL
+Select name, count(*) from Employee group by name having count(*) > 1;
+```
