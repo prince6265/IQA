@@ -37,7 +37,7 @@
 - Supported Language
     - typescript
 - Expression syntax
-    - Angular uses () fro event binding and [] for property binding.
+    - Angular uses () for event binding and [] for property binding.
 - Mobile Support
     - It provide mobile support
 - Dependency Injection
@@ -52,6 +52,10 @@
     - It provides active support, and frequent new updates are made.
 ### biggest advantages of using Angular?
 - Angular supports two-way data-binding.
+- It supports cross-platform development.
+- Open Source.
+- Fast reliable.
+- Readable and Testable code.
 - It follows MVC pattern architecture.
 - It supports static templates and Angular template.
 - It facilitates you to add a custom directive.
@@ -60,6 +64,44 @@
 - Angular provides client and server communication.
 - It provides support for dependency injection.
 - It provides powerful features like Event Handlers, Animation, etc.
+> StandAlone component:
+- it is a component that does not belong to the any angular Module.
+- it is introduced in angular 14.
+- from angular 17 it is by default a standalone component.
+### Hooks in angular:
+- Hooks are set of methods that are called at different stages of the component lifecycle.
+> **ngOnChanges** : 
+- It get triggered when the value of the Input (property) changes.
+- This Hook is particularly useful when a component receives new data from a parent component and need to response to those new changes.
+> **ngOnInit** :
+- It is called once after the component is initialized.
+- this is great place to put initialization logic that you want to be executed only once such as fetching data, setting up variables, or making initial http request (API calls).
+> **ngDoCheck** :
+- it is triggered during every change detection cycle.
+- which make it more powerful than ngOnChanges.
+- Unlike **ngOnChanges**, which only triggers when an input property changes, **ngDoCheck** allows you to monitor and react to any changes in your component's properties.
+> **ngAfterContentInit** :
+- it triggers when any external content is added (Content passed from a parent component) to the component.
+> **ngAfterContentChecked** :
+- whenever we Project any external content in any component angular check the content automatically is there any update or not. 
+- then after every time the ngAfterContentChecked will be triggered.
+- we have to use this hooks carefully because this will trigger every time the component is re-rendered.
+> **ngAfterViewInit :**
+- it is called after the components view and its child views are fully initialized. it's like everything is ready i can safely work with it.
+> **ngAfterViewChecked** :
+- it trigger after te angular checks the components view and it child views for changes. this happen whenever angular updates the views which could be due to change in data or user Interaction.
+> **ngOnDestroy** :
+- it is called just before a component or directive is destroyed. this is ideal place to cleanup the resources.
+### pipes:
+- allow it's user to change the format in which data is being displayed on the screen.
+- Pipes are simple function to use in template expressions to accept an input value and return a transformed value.
+- Default pipes in Angular
+    - DatePipe
+    - UpperCasePipe
+    - LowerCasePipe
+    - CurrencyPipe
+    - DecimalPipe
+    - PercentPipe
 ### Angular expressions:
 - Expressions are code snippets that are used to bind application data to HTML elements. usually written in double braces {{Expression}} like javascript.
 ### Templates in Angular:
@@ -82,25 +124,25 @@
 3. Data Binding and Interaction:
 - Data Binding: 
     - This connects the UI and data, allowing you to:
-    - Show dynamic data with interpolation ({{ data }}).
+    - Show dynamic data with interpolation (incorporate calculated values into the text between HTML elements tags in the curly braces) , {{ data }}.
 - Sync data between the UI and component with two-way binding.
-- Event Binding: Links actions (like clicks) from the user to functions in the component.
+- Event Binding: Links actions (like clicks, keystrokes, mouse movements, and touches) from the user to functions in the component.
 - Property Binding: Updates the view automatically when the data changes.
 4. Routing:
 - Navigation: Angular’s router manages navigation between different parts (views) of the app.
 - Routes: Defined in a routing module, specifying each URL and the component to display when that URL is visited.
 5. Services and Dependency Injection:
-- Services: Services handle shared data or logic that doesn’t belong to one specific component, like making API calls.
+- Services: Services handle shared data or logic that doesn’t belong to one specific component, like making API calls. provide a way to separate angular app data and functions that can be used by multiple components in our app. by using httpclient we can consume external API.
 - Dependency Injection (DI): Angular uses DI to manage and inject services where they’re needed, such as in components that require data fetching.
-6. HTTP Requests and APIs:
+1. HTTP Requests and APIs:
 - HTTPClient Module: To interact with APIs, Angular uses the HttpClient module, allowing components to fetch or send data to a backend server.
 - Observables: These allow handling async data (like data from an API) efficiently.
-7. Change Detection:
+1. Change Detection:
 - Angular automatically tracks changes in data and updates the UI accordingly using change detection. This makes sure that the view is always up-to-date with the data in the components.
-8. Compilation and Optimization:
+1. Compilation and Optimization:
 - Development Build: While coding, Angular runs a development build that helps catch errors and updates instantly.
 - Production Build: When the app is ready, a production build optimizes it by minimizing file sizes and improving performance before deployment.
-9. Deployment:
+1. Deployment:
 - The final build is deployed to a web server, making the app available to users.
 ### AOT in Angular:
 - AOT(Ahead of time compiler) used to convert your angular HTML and typescript code into efficient javascript code during the build phase before the browser downloads and runs that code. 
@@ -137,6 +179,7 @@
     - Observable provides operators like map, forEach, filter, reduce, retry, retryWhen etc.
 ### directives in Angular:
 - directives are special instructions added to the HTML to alter the DOM (Document Object Model) or change the appearance and behavior of elements.
+- directives are classes that add additional behavior to angular component.
 > three main directives angular have
 1. Component directive
       - These are the most common type of directive.
@@ -159,12 +202,17 @@
 ### Angular CLI?
 - It is a command-line interface to scaffold and build angular apps using node.js style modules.
 ```powershell
-npm install -g @angular/cli@18 
+npm install -g @angular/cli
 ```
-### Lazy loading Angular
+### LazyLoading Angular
 - It is a concept of angular routing.
 - it makes downloading data in chunks not in a single bundle.
 - Lazy loading facilitates asynchronously loading the feature module for routing whenever required using the property loadChildren.
+- It will reduce the initial load time as well.
+### Two-way data binding: 
+- it is combination of event and property binding.
+- Two-way data binding in Angular allows a component’s data and UI elements to stay in sync. When the data model changes, the UI reflects those changes, and vice versa. 
+- This feature is especially useful for form elements, where you want updates to propagate instantly between the input field and the component’s data.
 ### router imports:
 - The Angular Router, representing a particular component view for a given URL, is not part of Angular Core. It is available in a library named @angular/router, and we have to import the required router components. This process is called router imports.
 ```TypeScript
@@ -185,3 +233,70 @@ import { RouterModule, Routes } from '@angular/router';
 </nav>  
 <router-outlet></router-outlet>
 ```
+### http interceptor:
+- Use to perform various related to http requests and responses.
+- It is used to add headers to the request.
+- It is used to modify request and response.
+- It is used to handle errors.
+- It is used to log requests and responses.
+- It is used to authenticate requests.
+
+### pass headers in angular services.
+- with the help of http interceptor we can pass headers globally for all the requests.
+### Forms:
+- used to handle the user input such as validation, value assigning and getting data.
+- There are two type of forms
+    - Template driven form 
+        - it is simplest way to build a form in angular.
+        - it uses two-way data binding to create and manage the underlying form instances. Additionally, it provides validation and messaging for the form.
+    - Reactive form
+        - Access to information about a given control through properties and methods provided with each instance.
+        - it is also known as modal-driven forms.
+        - it is based on reactive Programming principles and allow you to manage form state and validation programmatically.
+### Form group, form control, form array:
+- use to build reactive forms.
+- Form control
+    - A FormControl represents a single form input element, like an input field, dropdown, or checkbox. It tracks the value, validation status, and other metadata for that input.
+- Form group
+    - it is collection of form controls objects that allows you to group related controls.
+    -  For example, in a registration form, you might group controls related to personal information together.
+ -  form array
+       -  A form-array is array like structure that can hold multiple form controls, form groups, or even nested form arrays. it is ideal for forms with dynamic fields, like adding or removing based on user actions.
+       -  example: list addresses or phone numbers.
+### Form Builder:
+- it provide syntactical sugar that shortens the creating instances of a form-control, form-group, and form-array.
+- It reduces the boiler plate needed to build complex forms. 
+### Validator class:
+- it is used to validate the form.
+- returns an error map or null.
+### Strong typed forms:
+- it allow us to write code faster and with fewer bugs.
+- the editor can now provide us with type-ahead suggestions for our form's value property.
+### Get the value in Disabled reactive forms:
+- using getRawValue()
+### State management options in Angular:
+- Component State
+- Rxjs
+- Services
+- NGRX
+### How to pass data from one component to another?
+- parent to child via @Input Decorator
+- child to parent via @Output Decorator and event emitter.
+- child to parent via @ViewChild decoration.
+- unrelated Components via a service & NGRX.
+### Signals in Angular:
+- it is a way to track changes to data reactively.
+- When data wrapped in a signal changes , any component or part of the app that relies on this data will automatically update.
+### How to convert signals into observables?
+-  you can use the toObservable() function. 
+-  This function takes a signal and transforms it into an observable, allowing you to use it with Angular’s reactive tools (like async pipes or RxJS operators).
+### Deferable View in Angular:
+- it delayed loading or rendering the part of UI until it is needed.
+- This helps improve performance by only loading content when a user is likely to see it, rather than loading everything upfront.
+### Control-flow templates in Angular:
+- allow to manage the flow of your app’s display logic more efficiently, especially for showing, hiding, or repeating elements based on certain conditions. 
+- this is replacement of Structural directives.
+- @if, @for, @switch and @else
+### server side rendering in Angular:
+- it means generating the html of app on the server side instead of browser.
+- Angular pre-renders the app on the server, and then App sends fully rendered HTML to the user's Browser.
