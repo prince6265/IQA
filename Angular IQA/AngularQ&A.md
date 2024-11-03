@@ -300,3 +300,18 @@ import { RouterModule, Routes } from '@angular/router';
 ### server side rendering in Angular:
 - it means generating the html of app on the server side instead of browser.
 - Angular pre-renders the app on the server, and then App sends fully rendered HTML to the user's Browser.
+### How to use service interceptor in standalone components?
+- First of all we need to setup the interceptor as a part of our http application configuration.
+- Using within interceptor option we can register http interceptor.
+- provideHttpClient(withInInterceptor([tokenInterceptor]))
+### RXJS (Reactive extensions for javascript)
+- it is a library for reactive programming using observables that makes it easier to compose asynchronous and callback-based code.
+- it is essential part of the framework as Angular's core API (HttpClient, eventHandling, forms, etc.) rely on it.
+### NGRX :
+- It is a framework to building reactive application in Angular.
+- it provides state management, isolation of side effects, entity collection management, router Binding, code generation, and developer tools that enhance developer experience when building many different types of applications.
+### Provider In angular
+- it is a class that creates and manage services object the first time that angular needs to resolve a dependency.
+- providers are used to register the classes to an angular module as a service.
+### --NO-Standalone
+- if we don't want to make our component standalone then we can use --no-standalone flag.
